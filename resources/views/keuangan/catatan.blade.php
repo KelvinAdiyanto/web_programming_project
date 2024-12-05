@@ -47,7 +47,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $transaksi->judul }}</td>
                             <td>{{ $transaksi->kategori }}</td>
-                            <td>{{ $transaksi->nominal }}</td>
+                            <td>{{ number_format(intval($transaksi->nominal), 0, ',', '.') }}</td>
                             <td>{{ $transaksi->tipe }}</td>
                         </tr>
                     @endforeach
