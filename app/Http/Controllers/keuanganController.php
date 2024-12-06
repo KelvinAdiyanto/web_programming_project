@@ -24,6 +24,8 @@ class KeuanganController extends Controller
     public function tabungan()
     {
         $user = Auth::user();
+
+        // Mengambil judul dan nominal yang dijadikan array agar bisa dibaca pie chart
         foreach ($user->tabungan as $tabungan) {
             $judul[] = $tabungan->judul;
             $nominal[] = $tabungan->nominal;

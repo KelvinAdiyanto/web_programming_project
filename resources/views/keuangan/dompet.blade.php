@@ -7,7 +7,6 @@
                     <th>No</th>
                     <th>Metode</th>
                     <th>Nominal (Rp)</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +15,6 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $metode }}</td>
                         <td>{{ number_format(intval($total), 0, ',', '.') }}</td>
-                        <td>></td>
                     </tr>
                 @endforeach
             </tbody>
