@@ -30,9 +30,4 @@ class DataController extends Controller
 
         return view('data.dompet', ['total' => $total]);
     }
-
-    public function riwayat()
-    {
-        return view('data.riwayat');
-    }
 }

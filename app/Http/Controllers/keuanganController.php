@@ -36,4 +36,28 @@ class KeuanganController extends Controller
 
         return view('keuangan.tabungan', $datas);
     }
+
+    public function dompet()
+    {
+        $user = Auth::user();
+        $transaksi = $user->transaksi;
+
+        $total = [];
+
+        // TODO: Limit tanggal transaksi utk mengurangi waktu looping
+        // Mengambil total pemasukan - total pengeluaran dari setiap metode yang digunakan
+        foreach ($transaksi as $transaksi) {
+            if (!isset($total[$transaksi->metode])) {
+                $total[$transaksi->metode] = 0;
+            }
+
+            if ($transaksi->tipe == 'Pemasukan') {
+                $total[$transaksi->metode] += $transaksi->nominal;
+            } elseif ($transaksi->tipe == 'Pengeluaran') {
+                $total[$transaksi->metode] -= $transaksi->nominal;
+            }
+        }
+
+        return view('keuangan.dompet', ['total' => $total]);
+    }
 }

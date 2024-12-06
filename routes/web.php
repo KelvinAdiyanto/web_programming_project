@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\authController;
-use App\Http\Controllers\DataController;
 use App\Http\Controllers\keuanganController;
+use App\Http\Controllers\KeuanganController as ControllersKeuanganController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +19,4 @@ Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard')
 
 Route::get('/catatan', [KeuanganController::class, 'catatan'])->name('keuangan.catatan');
 Route::get('/tabungan', [KeuanganController::class, 'tabungan'])->name('keuangan.tabungan');
-
-Route::get('/dompet', [DataController::class, 'dompet'])->name('data.dompet');
-Route::get('/riaway', [DataController::class, 'riwayat'])->name('data.riwayat');
+Route::get('/dompet', [ControllersKeuanganController::class, 'dompet'])->name('keuangan.dompet');
