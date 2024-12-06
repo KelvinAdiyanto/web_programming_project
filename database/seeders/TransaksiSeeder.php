@@ -15,6 +15,24 @@ class TransaksiSeeder extends Seeder
     {
         $transaksi = [
             [
+                'judul' => 'Gaji Kerja',
+                'kategori' => 'Lainnya',
+                'nominal' => '10000000',
+                'metode' => 'BCA',
+                'tipe' => 'Pemasukan',
+                'tanggal_transaksi' => '2024-9-1',
+                'user_id' => 1
+            ],
+            [
+                'judul' => 'Gaji Kerja',
+                'kategori' => 'Lainnya',
+                'nominal' => '5000000',
+                'metode' => 'Cash',
+                'tipe' => 'Pemasukan',
+                'tanggal_transaksi' => '2024-9-1',
+                'user_id' => 1
+            ],
+            [
                 'judul' => '7 Speed Cafe',
                 'kategori' => 'Makan',
                 'nominal' => '15000',
@@ -49,6 +67,15 @@ class TransaksiSeeder extends Seeder
                 'tipe' => 'Pemasukan',
                 'tanggal_transaksi' => '2024-10-21',
                 'user_id' => 1
+            ],
+            [
+                'judul' => 'Gaji Kerja',
+                'kategori' => 'Lainnya',
+                'nominal' => '5000000',
+                'metode' => 'Cash',
+                'tipe' => 'Pemasukan',
+                'tanggal_transaksi' => '2024-9-1',
+                'user_id' => 2
             ],
             [
                 'judul' => 'AA Cafe',
