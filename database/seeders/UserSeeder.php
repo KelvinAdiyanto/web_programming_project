@@ -16,12 +16,16 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'nama' => 'Zara',
+                'email' => 'zara@gmail.com',
+                'password' => 'zara123',
                 'role' => 'premium',
                 'saldo_total' => '14735000',
                 'tabungan_total' => '1750000000'
             ],
             [
                 'nama' => 'Ari',
+                'email' => 'ari123@gmail.com',
+                'password' => 'ari332211',
                 'role' => 'regular',
                 'saldo_total' => '4850000',
                 'tabungan_total' => '30000000'

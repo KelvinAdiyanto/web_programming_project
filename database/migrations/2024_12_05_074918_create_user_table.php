@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 255);
-            $table->string('role', 100);
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('role');
             $table->decimal('saldo_total', 16, 3);
             $table->decimal('tabungan_total', 16, 3);
             $table->timestamps();

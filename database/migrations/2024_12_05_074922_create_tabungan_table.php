@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tabungan', function (Blueprint $table) {
             $table->id();
-            $table->string('judul', 255);
+            $table->string('judul');
             $table->decimal('nominal', 16, 3);
             $table->timestamps();
 
