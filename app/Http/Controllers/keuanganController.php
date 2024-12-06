@@ -4,18 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class keuanganController extends Controller
+class KeuanganController extends Controller
 {
     public function catatan()
     {
-        $transaksi = Transaksi::all();
+        $user = Auth::user();
+        $transaksi = $user->transaksi;
 
-        return view('keuangan.catatan', ['transaksi' => $transaksi]);
+        $datas = [
+            'user' => $user,
+            'transaksi' => $transaksi
+        ];
+
+        return view('keuangan.catatan', $datas);
     }
 
     public function tabungan()
     {
-        return view('keuangan.tabungan');
+        $user = Auth::user();
+        foreach ($user->tabungan as $tabungan) {
+            $judul[] = $tabungan->judul;
+            $nominal[] = $tabungan->nominal;
+        }
+
+        $datas = [
+            'judul' => $judul,
+            'nominal' => $nominal
+        ];
+
+        return view('keuangan.tabungan', $datas);
     }
 }

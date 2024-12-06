@@ -11,7 +11,7 @@
                 <div class="row text-center">
                     <div class="col">
                         <h6 class="fw-bold">Saldo</h6>
-                        <p class="fs-5">Rp. 15.000.000</p>
+                        <p class="fs-5">Rp. {{ number_format(intval($user->saldo_total), 0, ',', '.') }}</p>
                     </div>
                     <div class="col">
                         <h6 class="fw-bold">Pendapatan</h6>
@@ -31,13 +31,13 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover text-center align-middle">
-                <thead class="table-success">
+            <table class="table text-center align-middle">
+                <thead class="table-success align-middle">
                     <tr>
                         <th>No</th>
                         <th>Judul Transaksi</th>
                         <th>Kategori</th>
-                        <th>Nominal</th>
+                        <th>Nominal (Rp)</th>
                         <th>Tipe</th>
                     </tr>
                 </thead>
