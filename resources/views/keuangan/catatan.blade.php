@@ -29,9 +29,10 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-between mb-3">
-            <button class="btn btn-success btn-sm">Tambah Catatan Baru</button>
-            <button class="btn btn-danger btn-sm">Unduh .pdf</button>
+        <div class="d-flex mb-3">
+            <form action="{{ route('catatan.create') }}" method="GET">
+                <button type="submit" class="btn btn-success btn-sm">Tambah Catatan Baru</button>
+            </form>
         </div>
 
         <div class="table-responsive">

@@ -9,6 +9,16 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
 
+    protected $fillable = [
+        'judul',
+        'kategori',
+        'nominal',
+        'metode',
+        'tipe',
+        'tanggal_transaksi',
+        'user_id',
+    ];
+
     /**
      * Get the user that owns the Transaksi
      *

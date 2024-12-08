@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class KeuanganController extends Controller
 {
+
+    // TODO: Move catatan to separate controller
     public function catatan(Request $request)
     {
         $user = Auth::user();
@@ -33,6 +35,36 @@ class KeuanganController extends Controller
 
         return view('keuangan.catatan', $datas);
     }
+
+    public function createCatatan()
+    {
+        return view('keuangan.addCatatan');
+    }
+
+    public function storeCatatan(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
+            'nominal' => 'required|integer|min:1',
+            'metode' => 'required|string|max:255',
+            'tipe' => 'required|in:Pemasukan,Pengeluaran',
+            'tanggal_transaksi' => 'required|date',
+        ]);
+
+        Transaksi::create([
+            'judul' => $request->judul,
+            'kategori' => $request->kategori,
+            'nominal' => $request->nominal,
+            'metode' => $request->metode,
+            'tipe' => $request->tipe,
+            'tanggal_transaksi' => $request->tanggal_transaksi,
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->route('keuangan.catatan');
+    }
+
 
     public function tabungan()
     {
