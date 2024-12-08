@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('metode');
             $table->string('tipe');
             $table->date('tanggal_transaksi');
+            $table->string('struk_path')->nullable();
             $table->timestamps();
 
             $table->foreignId('user_id');

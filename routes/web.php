@@ -20,6 +20,7 @@ Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard')
 Route::get('/catatan', [KeuanganController::class, 'catatan'])->name('keuangan.catatan');
 Route::get('/catatan/create', [KeuanganController::class, 'createCatatan'])->name('catatan.create');
 Route::post('/catatan/store', [KeuanganController::class, 'storeCatatan'])->name('catatan.store');
+Route::post('/catatan/add-struk/{id}', [keuanganController::class, 'addStruk'])->name('keuangan.addStruk');
 
 Route::get('/tabungan', [KeuanganController::class, 'tabungan'])->name('keuangan.tabungan');
 Route::get('/dompet', [ControllersKeuanganController::class, 'dompet'])->name('keuangan.dompet');

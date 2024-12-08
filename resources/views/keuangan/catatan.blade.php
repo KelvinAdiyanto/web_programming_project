@@ -30,47 +30,112 @@
         </div>
 
         <div class="d-flex mb-3">
-            <form action="{{ route('catatan.create') }}" method="GET">
-                <button type="submit" class="btn btn-success btn-sm">Tambah Catatan Baru</button>
+            <form id="uploadStruk" action="{{ route('catatan.create') }}" method="GET">
+                <button type="submit" class="btn btn-success btn-sm">Tambah Transaksi Baru</button>
             </form>
         </div>
 
         <div class="table-responsive">
             <table class="table text-center align-middle">
                 <thead class="table-success align-middle">
-                    <tr>
+                    <tr id="tableHeader">
                         <th>No</th>
                         <th>Judul Transaksi</th>
                         <th>Kategori</th>
                         <th>Nominal (Rp)</th>
                         <th>Tipe</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($transaksi as $item)
-                        <tr>
+                        <tr id="tableData">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->judul }}</td>
                             <td>{{ $item->kategori }}</td>
                             <td>{{ number_format(intval($item->nominal), 0, ',', '.') }}</td>
                             <td>{{ $item->tipe }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success fw-bold transaksi-detail-btn"
+                                    data-id="{{ $item->id }}" data-struk="{{ $item->struk_path ?? '' }}">></button>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">Tidak ada transaksi.</td>
+                            <td colspan="6">Tidak ada transaksi</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     </div>
+
+    <div class="position-fixed top-50 start-50 bg-white translate-middle p-4 shadow rounded" id="transaksiDetailDiv"
+        style="z-index: 1050; max-width: 400px; width: 100%; display: none;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="m-0"><span class="fw-bold" id="transaksiTitle"></span></h5>
+            <button type="button" class="btn-close" onclick="closeDiv()"></button>
+        </div>
+
+        <div id="transaksiDetail"></div>
+
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="mt-3">
+                <label for="fileUpload" class="form-label fw-semibold">Tambah Struk</label>
+                <input type="file" class="form-control mb-3" name="struk">
+                <button type="submit" class="btn btn-primary">Upload Gambar</button>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @push('script')
     <script>
-        const myForm = document.getElementById('tanggalForm');
+        const tanggalForm = document.getElementById('tanggalForm');
         document.getElementById('tanggalInput').addEventListener('change', function() {
-            myForm.submit();
+            tanggalForm.submit();
         });
+
+        document.querySelectorAll('.transaksi-detail-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                data = this.closest("tr");
+                header = document.getElementById('tableHeader');
+
+                document.getElementById('transaksiTitle').innerText = data.cells[1].innerText;
+
+                var transaksiDetail = document.getElementById("transaksiDetail");
+                transaksiDetail.innerHTML = '';
+
+                for (var i = 2; i <= 4; i++) {
+                    var p = document.createElement("p");
+                    p.innerHTML = "<span class='fw-semibold'>" + header.cells[i].innerHTML + "</span>: " +
+                        data.cells[i]
+                        .innerText;
+                    transaksiDetail.appendChild(p);
+                }
+
+                const transactionId = this.getAttribute('data-id');
+                const form = document.getElementById('uploadForm');
+                if (form) {
+                    form.action = `/catatan/add-struk/${transactionId}`;
+                }
+
+                const strukPath = this.getAttribute('data-struk');
+                if (strukPath) {
+                    const img = document.createElement("img");
+                    img.src = strukPath;
+                    img.alt = "Struk";
+                    img.className = "img-fluid mt-3";
+                    transaksiDetail.appendChild(img);
+                }
+
+                document.getElementById('transaksiDetailDiv').style.display = 'block';
+            });
+        });
+
+        function closeDiv() {
+            document.getElementById('transaksiDetailDiv').style.display = 'none';
+        }
     </script>
 @endpush

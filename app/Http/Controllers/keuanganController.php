@@ -65,6 +65,28 @@ class KeuanganController extends Controller
         return redirect()->route('keuangan.catatan');
     }
 
+    public function addStruk(Request $request, $transaksiId)
+    {
+        $request->validate([
+            'struk' => 'required|image|mimes:jpg,jpeg,png|max:20480',
+        ]);
+
+        if ($request->hasFile('struk')) {
+            $file = $request->file('struk');
+
+            $fileName = time() . '-' . $file->getClientOriginalName();
+
+            $file->move(public_path('images'), $fileName);
+
+            $transaksi = Transaksi::findOrFail($transaksiId);
+            $transaksi->struk_path = 'images/' . $fileName;
+            $transaksi->save();
+
+            return back()->with('success', 'Struk successfully uploaded!');
+        }
+
+        return back()->with('error', 'No file uploaded!');
+    }
 
     public function tabungan()
     {
