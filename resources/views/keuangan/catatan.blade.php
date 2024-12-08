@@ -30,7 +30,7 @@
         </div>
 
         <div class="d-flex mb-3">
-            <form id="uploadStruk" action="{{ route('catatan.create') }}" method="GET">
+            <form action="{{ route('catatan.create') }}" method="GET">
                 <button type="submit" class="btn btn-success btn-sm">Tambah Transaksi Baru</button>
             </form>
         </div>
@@ -125,7 +125,7 @@
                 if (strukPath) {
                     const img = document.createElement("img");
                     img.src = strukPath;
-                    img.alt = "Struk";
+                    img.alt = "Tidak ada struk";
                     img.className = "img-fluid mt-3";
                     transaksiDetail.appendChild(img);
                 }
