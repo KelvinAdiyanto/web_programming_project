@@ -3,7 +3,11 @@
     <div class="container my-4">
         <div class="text-center mb-4">
             <h4 class="fw-bold">Catatan Keuangan</h4>
-            <p class="text-muted">Senin, 21 Oktober 2024</p>
+
+            <form action="{{ route('keuangan.catatan') }}" method="GET" class="d-inline-block" id="tanggalForm">
+                <input type="date" name="tanggal" value="{{ request('tanggal') ?? now()->toDateString() }}"
+                    class="form-control d-inline-block w-auto" id="tanggalInput">
+            </form>
         </div>
 
         <div class="card shadow-sm mb-4">
@@ -15,18 +19,18 @@
                     </div>
                     <div class="col">
                         <h6 class="fw-bold">Pendapatan</h6>
-                        <p class="fs-5 text-success">Rp. 100.000</p>
+                        <p class="fs-5 text-success">Rp. {{ number_format(intval($total['Pemasukan']), 0, ',', '.') }}</p>
                     </div>
                     <div class="col">
                         <h6 class="fw-bold">Pengeluaran</h6>
-                        <p class="fs-5 text-danger">Rp. 365.000</p>
+                        <p class="fs-5 text-danger">Rp. {{ number_format(intval($total['Pengeluaran']), 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="d-flex justify-content-between mb-3">
-            <button class="btn btn-success btn-sm">Tambah Tabungan Baru</button>
+            <button class="btn btn-success btn-sm">Tambah Catatan Baru</button>
             <button class="btn btn-danger btn-sm">Unduh .pdf</button>
         </div>
 
@@ -42,17 +46,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($transaksi as $index => $transaksi)
+                    @forelse ($transaksi as $item)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $transaksi->judul }}</td>
-                            <td>{{ $transaksi->kategori }}</td>
-                            <td>{{ number_format(intval($transaksi->nominal), 0, ',', '.') }}</td>
-                            <td>{{ $transaksi->tipe }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->judul }}</td>
+                            <td>{{ $item->kategori }}</td>
+                            <td>{{ number_format(intval($item->nominal), 0, ',', '.') }}</td>
+                            <td>{{ $item->tipe }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5">Tidak ada transaksi.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        const myForm = document.getElementById('tanggalForm');
+        document.getElementById('tanggalInput').addEventListener('change', function() {
+            myForm.submit();
+        });
+    </script>
+@endpush

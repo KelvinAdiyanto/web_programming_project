@@ -8,14 +8,27 @@ use Illuminate\Support\Facades\Auth;
 
 class KeuanganController extends Controller
 {
-    public function catatan()
+    public function catatan(Request $request)
     {
         $user = Auth::user();
-        $transaksi = $user->transaksi;
+
+        $tanggal = $request->input('tanggal', now()->toDateString());
+
+        $transaksi = $user->transaksi()->whereDate('tanggal_transaksi', $tanggal)->get();
+
+        $empty = $transaksi->isEmpty();
+
+        $total = [
+            'Pemasukan' => $transaksi->where('tipe', 'Pemasukan')->sum('nominal'),
+            'Pengeluaran' => $transaksi->where('tipe', 'Pengeluaran')->sum('nominal'),
+        ];
 
         $datas = [
             'user' => $user,
-            'transaksi' => $transaksi
+            'transaksi' => $transaksi,
+            'total' => $total,
+            'tanggal' => $tanggal,
+            'empty' => $empty
         ];
 
         return view('keuangan.catatan', $datas);
