@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tabungan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,6 +105,27 @@ class KeuanganController extends Controller
         ];
 
         return view('keuangan.tabungan', $datas);
+    }
+
+    public function createTabungan()
+    {
+        return view('keuangan.addTabungan');
+    }
+
+    public function storeTabungan(Request $request)
+    {
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'nominal' => 'required|numeric|min:0',
+        ]);
+
+        Tabungan::create([
+            'judul' => $validated['judul'],
+            'nominal' => $validated['nominal'],
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->route('keuangan.tabungan')->with('success', 'Tabungan berhasil ditambahkan.');
     }
 
     public function dompet()

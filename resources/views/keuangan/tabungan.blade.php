@@ -1,6 +1,12 @@
 @extends('layout')
 @section('content')
     <div class="position-relative" style="height:80vh; width:80vw">
+        <div class="d-flex mb-3">
+            <form id="uploadStruk" action="{{ route('tabungan.create') }}" method="GET">
+                <button type="submit" class="btn btn-success btn-sm">Tambah Transaksi Baru</button>
+            </form>
+        </div>
+
         <canvas id="myChart"></canvas>
     </div>
 @endsection

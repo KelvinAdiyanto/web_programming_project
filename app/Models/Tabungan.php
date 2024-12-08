@@ -9,6 +9,12 @@ class Tabungan extends Model
 {
     protected $table = 'tabungan';
 
+    protected $fillable = [
+        'judul',
+        'nominal',
+        'user_id',
+    ];
+
     /**
      * Get the user that owns the Tabungan
      *
