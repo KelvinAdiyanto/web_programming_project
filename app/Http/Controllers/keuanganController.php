@@ -63,7 +63,7 @@ class KeuanganController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('keuangan.catatan');
+        return redirect()->route('keuangan.catatan')->withSuccess('Transaksi berhasil ditambahkan');
     }
 
     public function addStruk(Request $request, $transaksiId)
@@ -83,10 +83,10 @@ class KeuanganController extends Controller
             $transaksi->struk_path = 'images/' . $fileName;
             $transaksi->save();
 
-            return back()->with('success', 'Struk successfully uploaded!');
+            return back()->withSuccess('Struk berhasil di upload!');
         }
 
-        return back()->with('error', 'No file uploaded!');
+        return back()->withErrors('File gagal di upload!');
     }
 
     public function tabungan()
@@ -125,7 +125,7 @@ class KeuanganController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('keuangan.tabungan')->with('success', 'Tabungan berhasil ditambahkan.');
+        return redirect()->route('keuangan.tabungan')->withSuccess('Tabungan berhasil ditambahkan.');
     }
 
     public function dompet()
