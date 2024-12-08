@@ -9,6 +9,24 @@ class User extends Authenticatable
 {
     protected $table = 'user';
 
+    protected $fillable = [
+        'nama',
+        'email',
+        'password',
+        'role',
+        'saldo_total',
+        'tabungan_total',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     /**
      * Get all of the tabungan and transaksi for the User
      *

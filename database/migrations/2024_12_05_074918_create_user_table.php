@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role');
-            $table->decimal('saldo_total', 16, 3);
-            $table->decimal('tabungan_total', 16, 3);
+            $table->decimal('saldo_total', 16, 3)->default(0);
+            $table->decimal('tabungan_total', 16, 3)->default(0);
             $table->timestamps();
         });
     }

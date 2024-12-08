@@ -38,14 +38,20 @@ class AuthController extends Controller
 
     public function postRegistration(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:user',
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $data = $request->all();
-        $user = $this->create($data);
+        $user = User::create([
+            'nama' => $validated['nama'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'regular',
+            'saldo_total' => '0',
+            'tabungan_total' => '0'
+        ]);
 
         Auth::login($user);
 
@@ -59,18 +65,6 @@ class AuthController extends Controller
         }
 
         return redirect("login")->withSuccess('Opps! You do not have access');
-    }
-
-    public function create(array $data)
-    {
-        return User::create([
-            'nama' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => 'regular',
-            'saldo_total' => '0',
-            'tabungan_total' => '0'
-        ]);
     }
 
     public function logout()
