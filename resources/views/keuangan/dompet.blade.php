@@ -10,13 +10,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($total as $metode => $total)
+                @forelse ($total as $metode => $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $metode }}</td>
-                        <td>{{ number_format(intval($total), 0, ',', '.') }}</td>
+                        <td>{{ number_format(intval($item), 0, ',', '.') }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="3">Dompet kosong</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

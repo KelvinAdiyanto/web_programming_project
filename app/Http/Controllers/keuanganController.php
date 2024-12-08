@@ -94,17 +94,20 @@ class KeuanganController extends Controller
         $user = Auth::user();
 
         // Mengambil judul dan nominal yang dijadikan array agar bisa dibaca pie chart
-        foreach ($user->tabungan as $tabungan) {
-            $judul[] = $tabungan->judul;
-            $nominal[] = $tabungan->nominal;
+        if ($user->tabungan->isNotEmpty()) {
+            foreach ($user->tabungan as $tabungan) {
+                $judul[] = $tabungan->judul;
+                $nominal[] = $tabungan->nominal;
+            }
+
+            $datas = [
+                'judul' => $judul,
+                'nominal' => $nominal
+            ];
+
+            return view('keuangan.tabungan', $datas);
         }
-
-        $datas = [
-            'judul' => $judul,
-            'nominal' => $nominal
-        ];
-
-        return view('keuangan.tabungan', $datas);
+        return view('keuangan.tabungan');
     }
 
     public function createTabungan()
