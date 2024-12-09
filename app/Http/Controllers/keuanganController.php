@@ -127,6 +127,7 @@ class KeuanganController extends Controller
             }
 
             $datas = [
+                'tabungan' => $user->tabungan,
                 'judul' => $judul,
                 'nominal' => $nominal
             ];
@@ -155,6 +156,19 @@ class KeuanganController extends Controller
         ]);
 
         return redirect()->route('keuangan.tabungan')->withSuccess('Tabungan berhasil ditambahkan.');
+    }
+
+    public function destroyTabungan($id)
+    {
+        $tabungan = Tabungan::findOrFail($id);
+
+        if ($tabungan->user_id !== Auth::id()) {
+            return redirect()->route('keuangan.tabungan')->withError('Anda tidak memiliki izin untuk menghapus tabungan ini');
+        }
+
+        $tabungan->delete();
+
+        return redirect()->route('keuangan.tabungan')->withSuccess('Tabungan berhasil dihapus');
     }
 
     public function dompet()

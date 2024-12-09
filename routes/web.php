@@ -25,5 +25,6 @@ Route::delete('/catatan/destroy-catatan/{id}', [KeuanganController::class, 'dest
 Route::get('/tabungan', [KeuanganController::class, 'tabungan'])->middleware('auth')->name('keuangan.tabungan');
 Route::get('/tabungan/create', [KeuanganController::class, 'createTabungan'])->middleware('auth')->name('tabungan.create');
 Route::post('/tabungan', [KeuanganController::class, 'storeTabungan'])->middleware('auth')->name('tabungan.store');
+Route::delete('/tabungan/{id}', [KeuanganController::class, 'destroyTabungan'])->name('tabungan.destroy');
 
 Route::get('/dompet', [ControllersKeuanganController::class, 'dompet'])->middleware('auth')->name('keuangan.dompet');
