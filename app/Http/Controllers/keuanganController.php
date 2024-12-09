@@ -53,7 +53,7 @@ class KeuanganController extends Controller
             'tanggal_transaksi' => 'required|date',
         ]);
 
-        Transaksi::create([
+        $transaksi = Transaksi::create([
             'judul' => $request->judul,
             'kategori' => $request->kategori,
             'nominal' => $request->nominal,
@@ -63,7 +63,33 @@ class KeuanganController extends Controller
             'user_id' => Auth::id(),
         ]);
 
+        $user = Auth::user();
+
+        if ($transaksi->tipe === 'Pemasukan') {
+            $user->saldo_total += $transaksi->nominal;
+        } else {
+            $user->saldo_total -= $transaksi->nominal;
+        }
+        $user->save();
+
         return redirect()->route('keuangan.catatan')->withSuccess('Transaksi berhasil ditambahkan');
+    }
+
+    public function destroyCatatan($id)
+    {
+        $user = Auth::user();
+        $transaksi = Transaksi::findOrFail($id);
+
+        if ($transaksi->tipe === 'Pemasukan') {
+            $user->saldo_total -= $transaksi->nominal;
+        } else {
+            $user->saldo_total += $transaksi->nominal;
+        }
+        $user->save();
+
+        $transaksi->delete();
+
+        return redirect()->route('keuangan.catatan')->withSuccess('Transaksi berhasil dihapus');
     }
 
     public function addStruk(Request $request, $transaksiId)

@@ -20,6 +20,7 @@ Route::get('/catatan', [KeuanganController::class, 'catatan'])->middleware('auth
 Route::get('/catatan/create', [KeuanganController::class, 'createCatatan'])->middleware('auth')->name('catatan.create');
 Route::post('/catatan', [KeuanganController::class, 'storeCatatan'])->middleware('auth')->name('catatan.store');
 Route::post('/catatan/add-struk/{id}', [keuanganController::class, 'addStruk'])->middleware('auth')->name('keuangan.addStruk');
+Route::delete('/catatan/destroy-catatan/{id}', [KeuanganController::class, 'destroyCatatan'])->name('catatan.destroy');
 
 Route::get('/tabungan', [KeuanganController::class, 'tabungan'])->middleware('auth')->name('keuangan.tabungan');
 Route::get('/tabungan/create', [KeuanganController::class, 'createTabungan'])->middleware('auth')->name('tabungan.create');

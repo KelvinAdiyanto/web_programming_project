@@ -79,13 +79,19 @@
 
         <div id="transaksiDetail"></div>
 
-        <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <form id="uploadForm" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mt-3">
                 <label for="fileUpload" class="form-label fw-semibold">Tambah Struk</label>
                 <input type="file" class="form-control mb-3" name="struk">
                 <button type="submit" class="btn btn-primary">Upload Gambar</button>
             </div>
+        </form>
+
+        <form id="deleteForm" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>
 @endsection
@@ -116,9 +122,14 @@
                 }
 
                 const transactionId = this.getAttribute('data-id');
-                const form = document.getElementById('uploadForm');
-                if (form) {
-                    form.action = `/catatan/add-struk/${transactionId}`;
+                const uploadForm = document.getElementById('uploadForm');
+                if (uploadForm) {
+                    uploadForm.action = `/catatan/add-struk/${transactionId}`;
+                }
+
+                const deleteForm = document.getElementById('deleteForm');
+                if (deleteForm) {
+                    deleteForm.action = `/catatan/destroy-catatan/${transactionId}`;
                 }
 
                 const strukPath = this.getAttribute('data-struk');
