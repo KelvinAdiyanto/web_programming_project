@@ -12,14 +12,25 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h3 class="py-3 fw-bold"><a href="{{ route('dashboard') }}">FinAlly.</a></h3>
+            <div class="col d-flex justify-content-between align-items-center">
+                <h3 class="py-3 fw-bold">
+                    <a href="{{ route('dashboard') }}">FinAlly.</a>
+                </h3>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-start me-3">
+                        <div class="text-start">{{ Auth::user()->nama }}</div>
+                        <div class="text-start">{{ Auth::user()->role }}</div>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">@yield('content')</div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">@yield('content')</div>
-        </div>
-    </div>
 </body>
 
 <script src="{{ asset('js/boostrap.bundle.min.js') }}"></script>

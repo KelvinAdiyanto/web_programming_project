@@ -27,6 +27,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+
     /**
      * Get all of the tabungan and transaksi for the User
      *
