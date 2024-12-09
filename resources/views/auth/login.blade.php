@@ -55,19 +55,6 @@
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <div class="d-flex gap-2 justify-content-between">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    name="rememberMe" id="rememberMe">
-                                                <label class="form-check-label text-secondary" for="rememberMe">
-                                                    Keep me logged in
-                                                </label>
-                                            </div>
-                                            <a href="#!" class="link-primary text-decoration-none">forgot
-                                                password?</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
                                         <div class="d-grid my-3">
                                             <button class="btn btn-primary btn-lg" type="submit">Login</button>
                                         </div>
