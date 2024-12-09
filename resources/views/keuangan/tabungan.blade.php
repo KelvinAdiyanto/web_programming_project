@@ -51,7 +51,6 @@
             <div class="col-md-6">
                 <div class="position-relative" style="height:80vh; width:100%">
                     @empty($judul)
-                        <div>Tidak ada tabungan</div>
                     @else
                         <canvas id="myChart"></canvas>
                     @endempty

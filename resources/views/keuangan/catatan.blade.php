@@ -91,7 +91,9 @@
         <form id="deleteForm" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <div class="mt-1">
+                <button type="submit" class="btn btn-danger">Hapus</button>
+            </div>
         </form>
     </div>
 @endsection
