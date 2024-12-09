@@ -67,6 +67,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{ $transaksi->appends(['tanggal' => request('tanggal')])->links() }}
+            </div>
         </div>
     </div>
 

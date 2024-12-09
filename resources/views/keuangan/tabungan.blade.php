@@ -44,6 +44,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center">
+                            {{ $tabungan->links() }}
+                        </div>
                     </div>
                 @endempty
             </div>

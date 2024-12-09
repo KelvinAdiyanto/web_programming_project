@@ -5,6 +5,10 @@ use App\Http\Controllers\keuanganController;
 use App\Http\Controllers\KeuanganController as ControllersKeuanganController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('dashboard');
+})->middleware('auth');
+
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');

@@ -17,13 +17,13 @@ class KeuanganController extends Controller
 
         $tanggal = $request->input('tanggal', now()->toDateString());
 
-        $transaksi = $user->transaksi()->whereDate('tanggal_transaksi', $tanggal)->get();
+        $allTransaksi = $user->transaksi()->whereDate('tanggal_transaksi', $tanggal)->get();
 
-        $empty = $transaksi->isEmpty();
+        $transaksi = $user->transaksi()->whereDate('tanggal_transaksi', $tanggal)->paginate(5);
 
         $total = [
-            'Pemasukan' => $transaksi->where('tipe', 'Pemasukan')->sum('nominal'),
-            'Pengeluaran' => $transaksi->where('tipe', 'Pengeluaran')->sum('nominal'),
+            'Pemasukan' => $allTransaksi->where('tipe', 'Pemasukan')->sum('nominal'),
+            'Pengeluaran' => $allTransaksi->where('tipe', 'Pengeluaran')->sum('nominal'),
         ];
 
         $datas = [
@@ -31,7 +31,7 @@ class KeuanganController extends Controller
             'transaksi' => $transaksi,
             'total' => $total,
             'tanggal' => $tanggal,
-            'empty' => $empty
+            'empty' => $allTransaksi->isEmpty()
         ];
 
         return view('keuangan.catatan', $datas);
@@ -119,22 +119,23 @@ class KeuanganController extends Controller
     {
         $user = Auth::user();
 
+        $tabungan = $user->tabungan()->paginate(5);
+
         // Mengambil judul dan nominal yang dijadikan array agar bisa dibaca pie chart
-        if ($user->tabungan->isNotEmpty()) {
-            foreach ($user->tabungan as $tabungan) {
-                $judul[] = $tabungan->judul;
-                $nominal[] = $tabungan->nominal;
+        if ($tabungan->isNotEmpty()) {
+            foreach ($user->tabungan as $item) {
+                $judul[] = $item->judul;
+                $nominal[] = $item->nominal;
             }
-
-            $datas = [
-                'tabungan' => $user->tabungan,
-                'judul' => $judul,
-                'nominal' => $nominal
-            ];
-
-            return view('keuangan.tabungan', $datas);
         }
-        return view('keuangan.tabungan');
+
+        $datas = [
+            'tabungan' => $tabungan,
+            'judul' => $judul,
+            'nominal' => $nominal
+        ];
+
+        return view('keuangan.tabungan', $datas);
     }
 
     public function createTabungan()
